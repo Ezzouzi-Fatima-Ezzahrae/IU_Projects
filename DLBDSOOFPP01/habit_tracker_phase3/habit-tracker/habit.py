@@ -6,11 +6,12 @@ class Habit:
     Represents a single habit 
     """
 
-    def __init__(self, name,category, frequency,created_at=None):
+    def __init__(self, name, category, frequency, duration=None, created_at=None):
         self.id = None                # assigned by Storage
         self.name = name 
         self.category = category 
         self.frequency = frequency 
+        self.duration = duration      # duration in days
 
 
         if isinstance(created_at, str):
@@ -58,7 +59,23 @@ class Habit:
          elif answer=="category":
           self.category=new_value
          elif answer=="frequency":
-          self.frequency=new_value    
+          self.frequency=new_value
+         elif answer=="duration":
+          self.duration=new_value
+
+    def get_last_completion(self):
+        """
+        Returns the last completion date or None.
+        """
+        if not self.completions:
+            return None
+        return max(self.completions)
+
+    def get_marked_off_count(self):
+        """
+        Returns the total number of times this habit was marked off.
+        """
+        return len(self.completions)    
 
     # CURRENT STREAK 
     # ---------------
@@ -127,40 +144,27 @@ class Habit:
             "name": self.name,
             "category": self.category,
             "frequency": self.frequency,
+            "duration": self.duration,
+            "start_date": self.created_at.strftime("%Y/%m/%d") if self.created_at else "—",
+            "marked_off": len(self.completions),
+            "last_completed": self.get_last_completion(),
+            "streak": self.get_current_streak(),
+            "longest_streak": self.get_longest_streak(),
             "created_at": self.created_at,
             "completions": [c.isoformat() for c in self.completions]
         }
    
-    def __str__(h):  #Turns a Habit object into pretty text , it makes CLI output readable & friendly 
-        freq_icon = "📅 " if h.frequency == "daily" else "🗓️ "
+    def __str__(self):
+        """Format habit as readable string for CLI output."""
+        freq_icon = "📅 " if self.frequency == "daily" else "🗓️ "
         
+        return (
+            f"   {self.name}\n"
+            f"   {freq_icon} {self.frequency.capitalize()} | 🏷️  {self.category}\n"
+            f"   🔥 Current streak: {self.get_current_streak()}\n"
+            f"   🏆 Longest streak: {self.get_longest_streak()}\n"
+        )
 
-        return(
-                 f"   {h.name}\n"
-            
-                 f"   {freq_icon} {h.frequency.capitalize()} | 🏷️  {h.category}\n"
-                 f"   🔥 Current streak: {h.get_current_streak()}\n"
-                 f"   🏆 Longest streak: {h.get_longest_streak()}\n"
-               )
-
-
-
-    def __repr__(self):  # technical representation for debugging and logging 
-       return self.__str__() 
-
-
-   
- 
-"""
-This class:
-
-stores timestamps
-
-supports daily and weekly habits
-
-calculates streaks
-
-works with SQLite
-
-feeds analytics functions
-"""
+    def __repr__(self):
+        """Technical representation for debugging."""
+        return self.__str__()

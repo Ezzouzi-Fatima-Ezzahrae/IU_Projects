@@ -19,7 +19,7 @@ class HabitTracker:
     # Creation
     # -----------------------------
 
-    def create_habit(self, name, category, frequency):
+    def create_habit(self, name, category, frequency, duration=None):
         """
         Create a new habit and store it.
         """
@@ -28,6 +28,7 @@ class HabitTracker:
             name=name,
             category=category,
             frequency=frequency,
+            duration=duration,
            # created_at=None
         )
         habit_id = self.storage.add_habit(habit)

@@ -34,6 +34,7 @@ class Storage:
             name TEXT UNIQUE,
             category TEXT,
             frequency TEXT,
+            duration INTEGER,
             created_at TIMESTAMP
         )
         """)
@@ -47,6 +48,12 @@ class Storage:
         )
         """
                         )
+
+        # Add duration column if it doesn't exist (for backward compatibility)
+        try:
+            cursor.execute("ALTER TABLE habits ADD COLUMN duration INTEGER")
+        except sqlite3.OperationalError:
+            pass  # Column already exists
 
         self.conn.commit()
 
@@ -65,12 +72,13 @@ class Storage:
         cursor = self.conn.cursor()
         try:
           cursor.execute("""          
-               INSERT INTO habits (name, category, frequency, created_at)
-               VALUES (?, ?, ?, ?)
+               INSERT INTO habits (name, category, frequency, duration, created_at)
+               VALUES (?, ?, ?, ?, ?)
         """, (
             habit.name,
             habit.category,
             habit.frequency,
+            habit.duration,
             habit.created_at   
                       )
         )
@@ -91,7 +99,7 @@ class Storage:
         habits = []
 
         for row in habit_rows:
-            habit_id, name, category, frequency, created_at = row
+            habit_id, name, category, frequency, duration, created_at = row
 
             completions = self.get_completions(habit_id)
 
@@ -100,6 +108,7 @@ class Storage:
                 name=name,
                 category=category,
                 frequency=frequency,
+                duration=duration,
                 created_at=created_at
             )
             habit.id=habit_id
@@ -140,7 +149,14 @@ class Storage:
 
         rows = cursor.fetchall()
 
-        return [datetime.fromisoformat(row[0]) for row in rows]
+        completions = []
+        for row in rows:
+            # SQLite with PARSE_DECLTYPES returns datetime objects directly
+            if isinstance(row[0], datetime):
+                completions.append(row[0])
+            else:
+                completions.append(datetime.fromisoformat(row[0]))
+        return completions
     
     def update_habit(self, habit_id, answer, new_value):  # Edit operation
         cursor = self.conn.cursor()
