@@ -1,9 +1,5 @@
 # Habit-tracking-application 
 
-<h2> IU projects </h2>
-
-# Habit Tracking App (Python Backend)
-
 A command-line habit tracking application built with Python.
 It helps users build consistency by tracking habits, managing streaks,
 and analyzing long-term behavior using clean, testable logic.
