@@ -1,6 +1,5 @@
 # Habit-tracking-application 
-IU projects
-# habit-tracking-application 
+
 <h2> IU projects </h2>
 
 # Habit Tracking App (Python Backend)
