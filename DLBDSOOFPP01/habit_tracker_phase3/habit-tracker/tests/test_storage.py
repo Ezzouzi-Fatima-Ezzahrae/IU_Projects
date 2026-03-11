@@ -1,33 +1,62 @@
-import sys
-import os
-
-# Make project root importable
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from storage import Storage
-from habit import Habit
+import pytest
+from infrastructure.storage import Storage
+from domain.habit import Habit
 from datetime import datetime
 
 
-def test_store_and_load_habit():
-    storage = Storage(":memory:")
+def test_add_habit(tmp_path):
+    db = tmp_path / "test.db"
+
+    storage = Storage(str(db))
+
+    habit = Habit("Run", "Fitness", "daily")
+
+    habit_id = storage.add_habit(habit)
+
+    assert habit_id is not None
+
+
+def test_get_all_habits(tmp_path):
+    db = tmp_path / "test.db"
+
+    storage = Storage(str(db))
 
     habit = Habit("Read", "Mind", "daily")
     storage.add_habit(habit)
 
     habits = storage.get_all_habits()
+
     assert len(habits) == 1
     assert habits[0].name == "Read"
 
 
-def test_store_completion():
-    storage = Storage(":memory:")
+def test_add_completion(tmp_path):
+    db = tmp_path / "test.db"
 
-    habit = Habit("001","Drink Water", "Health", "daily")
+    storage = Storage(str(db))
+
+    habit = Habit("Drink Water", "Health", "daily")
+
     habit_id = storage.add_habit(habit)
 
-    now = datetime.now()
-    storage.add_completion(habit_id, now)
+    storage.add_completion(habit_id, datetime.now())
 
     completions = storage.get_completions(habit_id)
+
     assert len(completions) == 1
+
+
+def test_delete_habit(tmp_path):
+    db = tmp_path / "test.db"
+
+    storage = Storage(str(db))
+
+    habit = Habit("Gym", "Fitness", "weekly")
+
+    habit_id = storage.add_habit(habit)
+
+    storage.delete_habit(habit_id)
+
+    habits = storage.get_all_habits()
+
+    assert len(habits) == 0

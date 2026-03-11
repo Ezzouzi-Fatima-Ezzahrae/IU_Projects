@@ -1,5 +1,5 @@
 import sqlite3
-from habit import Habit
+from domain.habit import Habit
 from datetime import datetime
 
 
@@ -12,7 +12,7 @@ class Storage:
  
     """
 
-    def __init__(self, db_name="habits.db"):
+    def __init__(self, db_name="db/habits.db"):
        
         self.conn = sqlite3.connect(
         db_name,check_same_thread=False,     # tells SQLite:“I know what I’m doing — allow multi-thread access”

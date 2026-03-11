@@ -1,5 +1,5 @@
-from habit import Habit
-from analytics import (
+from domain.habit import Habit
+from domain.analytics import (
     get_all_habits,
     get_habits_by_periodicity,
     get_longest_streak_all,

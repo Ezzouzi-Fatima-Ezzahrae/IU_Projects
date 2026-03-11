@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from habit import Habit
+from domain.habit import Habit
 
 class PredefinedHabitsLoader:
     """

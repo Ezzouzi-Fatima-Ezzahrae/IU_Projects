@@ -36,19 +36,51 @@ graphical user interface.
 
 ```
 habit-tracker/
-├── analytics.py     # Functional analytics module
-├── habit.py         # Habit class (core habit logic)
-├── tracker.py       # Application controller
-├── storage.py       # SQLite persistence layer
-├── predefined.py    # Predefined habits and test data
-├── main.py          # CLI entry point
-├── habits.db        # SQLite database (auto-generated)
-├── tests/
-│   ├── test_habit.py
-│   ├── test_analytics.py
-│   └── test_storage.py
+│
+├── main.py
+├── README.md
 ├── requirements.txt
-└── README.md
+├── .gitignore
+├── 
+│
+├── application/
+│   ├── __init__.py
+│   ├── tracker.py
+│   └── predefined.py
+│
+├── domain/
+│   ├── __init__.py
+│   ├── habit.py
+│   └── analytics.py
+│
+├── infrastructure/
+│   ├── __init__.py
+│   └── storage.py
+│
+├── presentation/
+│   ├── __init__.py
+│   ├── analytics_menu.py
+│   ├── display.py
+│   ├── exporter.py
+│   └── visualization.py
+│
+├── utils/
+│   ├── __init__.py
+│   └── clear_screen.py
+│
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── test_storage.py
+│   ├── test_habit.py
+│   └── test_analytics.py
+│
+├── db/
+│   └── habits.db
+│
+├── .pytest_cache/
+├── __pycache__/
+└── .venv
 
 ```
 
@@ -62,11 +94,14 @@ or you can download it: https://www.python.org/downloads/
 
 - Visual Studio Code (recommended)
 
-- pytest (for running tests)
+-- Third-party Libraries (need pip install)
 
-- Important packages:
+matplotlib → for plotting habit progress (plot_habit_progress)
 
-  pytest~=7.2.0 "pip install -U pytest"
+pytest → for testing your modules (test_habit.py, test_storage.py,test_analytics.py )
+- To install all dependencies at once:
+
+       run python -m pip install -r requirements.txt
 
 - How to Run the Application
 
