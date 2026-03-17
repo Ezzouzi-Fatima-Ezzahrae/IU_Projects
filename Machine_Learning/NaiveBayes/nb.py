@@ -85,8 +85,8 @@ y_pred = model.predict(X_test)
 # STEP 7: Print the prediction results
 # ---------------------------------------------------------
 
-print('Prediction results:')
-print(y_pred)
+print(f'Prediction results:\n{y_pred}')
+
 
 # Output example:
 # [0 1 1]
