@@ -61,25 +61,25 @@ pytest → for testing your modules (test_habit.py, test_storage.py,test_analyti
 
 ##  Setup
 
-```md
+  ```md
 
-> Run all commands below in your terminal (Command Prompt PowerShell, or VS Code terminal).
+  > Run all commands below in your terminal (Command Prompt PowerShell, or VS Code terminal).
 
-> Note: This repository contains multiple projects. Only the `habit-tracker` folder is required for this application. 
+  > Note: This repository contains multiple projects. Only the `habit-tracker` folder is required for this application. 
 
-1. Clone the repository:
+ 1. Clone the repository:
    ```bash
    git clone https://github.com/Ezzouzi-Fatima-Ezzahrae/IU_Projects.git
 
-2. Navigate to the Habit Tracker project:
+ 2. Navigate to the Habit Tracker project:
 
    cd IU_Projects/DLBDSOOFPP01/habit_tracker_phase3/habit-tracker
 
-3. Create a virtual environment:
+ 3. Create a virtual environment:
 
    python -m venv venv
 
-4. Activate the virtual environment:
+ 4. Activate the virtual environment:
 
   Windows:
 
@@ -88,11 +88,11 @@ pytest → for testing your modules (test_habit.py, test_storage.py,test_analyti
   macOS / Linux:
 
   source venv/bin/activate
-5. Install dependencies:
+ 5. Install dependencies:
 
    pip install -r requirements.txt
 
-6. Run the application:
+ 6. Run the application:
 
    python main.py  
 
