@@ -61,7 +61,7 @@ pytest → for testing your modules (test_habit.py, test_storage.py,test_analyti
 
 ##  Setup
 
-  ```md
+ ```md
 
   > Run all commands below in your terminal (Command Prompt PowerShell, or VS Code terminal).
 
@@ -70,7 +70,7 @@ pytest → for testing your modules (test_habit.py, test_storage.py,test_analyti
  1. Clone the repository:
    ```bash
    git clone https://github.com/Ezzouzi-Fatima-Ezzahrae/IU_Projects.git
-   ...
+   ```  
 
  2. Navigate to the Habit Tracker project:
 
@@ -96,7 +96,9 @@ pytest → for testing your modules (test_habit.py, test_storage.py,test_analyti
  6. Run the application:
 
    python main.py  
-...
+ ```  
+
+
 ---
 
 ## Default Data
