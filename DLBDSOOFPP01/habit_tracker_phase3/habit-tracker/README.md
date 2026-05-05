@@ -8,7 +8,13 @@ The application focuses on core habit tracking functionality and does not includ
 graphical user interface.
 
 ---
+## 🎬 Demo
+![Demo](assets/demo.gif)
 
+## 📸 Screenshots
+![Dashboard](assets\sc1.png)
+![Analytics](assets\sc2.png) 
+![Analytics](assets\sc3.png)
 ## Features
 
 - Create and manage multiple habits
@@ -26,58 +32,6 @@ graphical user interface.
 
 ---
 
-## Project Structure
-
-
-```
-habit-tracker/
-│
-├── main.py
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── 
-│
-├── application/
-│   ├── __init__.py
-│   ├── tracker.py
-│   └── predefined.py
-│
-├── domain/
-│   ├── __init__.py
-│   ├── habit.py
-│   └── analytics.py
-│
-├── infrastructure/
-│   ├── __init__.py
-│   └── storage.py
-│
-├── presentation/
-│   ├── __init__.py
-│   ├── analytics_menu.py
-│   ├── display.py
-│   ├── exporter.py
-│   └── visualization.py
-│
-├── utils/
-│   ├── __init__.py
-│   └── clear_screen.py
-│
-├── tests/
-│   ├── __init__.py
-│   ├── conftest.py
-│   ├── test_storage.py
-│   ├── test_habit.py
-│   └── test_analytics.py
-│
-├── db/
-│   └── habits.db
-│
-├── .pytest_cache/
-├── __pycache__/
-└── .venv
-
-```
 
 ## Requirements
 
@@ -105,23 +59,57 @@ pytest → for testing your modules (test_habit.py, test_storage.py,test_analyti
   python main.py
 
 
-## 🚀 Installation & Setup
+##  Setup
+
+```md
+
+> Run all commands below in your terminal (Command Prompt PowerShell, or VS Code terminal).
+
+> Note: This repository contains multiple projects. Only the `habit-tracker` folder is required for this application. 
 
 1. Clone the repository:
    ```bash
-      git clone  https://github.com/Fati03-AI/habit-tracking.git
+   git clone https://github.com/Ezzouzi-Fatima-Ezzahrae/IU_Projects.git
 
-## Predefined Habits and Test Data
+2. Navigate to the Habit Tracker project:
+
+   cd IU_Projects/DLBDSOOFPP01/habit_tracker_phase3/habit-tracker
+
+3. Create a virtual environment:
+
+   python -m venv venv
+
+4. Activate the virtual environment:
+
+  Windows:
+
+  venv\Scripts\activate
+
+  macOS / Linux:
+
+  source venv/bin/activate
+5. Install dependencies:
+
+   pip install -r requirements.txt
+
+6. Run the application:
+
+   python main.py  
+
+---
+
+## Default Data
 
 On first startup, the application automatically loads 5 predefined habits:
 
-- At least one daily habit
+- At least one daily habit  
+- At least one weekly habit  
 
-- At least one weekly habit
+Each habit includes sample tracking data for 4 weeks, including:
+- Missed days  
+- Broken streaks  
 
-Each predefined habit includes example tracking data for a period of 4 weeks.
-This data contains missed days and broken streaks and serves as a test fixture
-for validating the analytics functionality.
+This dataset is used to test and validate the analytics features.
   
 
 ## Habit Streak Logic
@@ -140,10 +128,12 @@ consecutive completed periods without breaking the habit.
 
 # Contributing
 
-This is my first Python project. Your feedback, ideas, and contributions are welcomed!
+Your feedback, ideas, and contributions are welcomed!
 
 ## License
+
 This project is licensed under the MIT License.
 
 ## Author
+
 Fatima Ezzahrae Ezzouzi
