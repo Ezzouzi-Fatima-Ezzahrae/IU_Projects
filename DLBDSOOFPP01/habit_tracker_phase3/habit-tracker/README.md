@@ -12,9 +12,9 @@ graphical user interface.
 ![Demo](assets/demo.gif)
 
 ## 📸 Screenshots
-![Dashboard](assets\sc1.png)
-![Analytics](assets\sc2.png) 
-![Analytics](assets\sc3.png)
+![Dashboard](assets/sc1.png)
+![Analytics](assets/sc2.png) 
+![Analytics](assets/sc3.png)
 ## Features
 
 - Create and manage multiple habits
