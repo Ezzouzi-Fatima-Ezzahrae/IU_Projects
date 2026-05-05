@@ -13,7 +13,7 @@ graphical user interface.
 
 ## 📸 Screenshots
 ![Dashboard](assets/sc1.png)
-![Analytics](assets/sc2.png) 
+![Analytics](assets/sc2.png) /n 
 ![Analytics](assets/sc3.png)
 ## Features
 
@@ -131,6 +131,7 @@ consecutive completed periods without breaking the habit.
 ## Testing
 
 This project includes unit tests to verify the functionality of core modules such as habits, storage, and analytics.
+![Testing](assets\test.png)
 
 ### Run all tests
 

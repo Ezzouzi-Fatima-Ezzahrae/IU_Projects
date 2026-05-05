@@ -4,6 +4,17 @@ from datetime import timedelta
 import matplotlib
 matplotlib.use('TkAgg')  # Use TkAgg backend for better compatibility
 
+import os
+
+EXPORT_DIR = "exports"
+
+def ensure_export_dir():
+    if not os.path.exists(EXPORT_DIR):
+        os.makedirs(EXPORT_DIR)
+
+def get_export_path(filename):
+    ensure_export_dir()
+    return os.path.join(EXPORT_DIR, filename)
 
 def plot_habit_progress(habit, filename=None):
     """
@@ -72,14 +83,18 @@ def plot_habit_progress(habit, filename=None):
         plt.tight_layout()
         
         # Save if filename provided
-        if filename:
-            plt.savefig(filename, dpi=300, bbox_inches='tight')
-            print(f"\n✓ Progress chart saved as '{filename}'")
-        else:
-            default_filename = f"{habit.name.replace(' ', '_')}_progress.png"
-            plt.savefig(default_filename, dpi=300, bbox_inches='tight')
-            print(f"\n✓ Progress chart saved as '{default_filename}'")
-        
+        from datetime import datetime
+
+        # Generate filename if not provided
+        if not filename:
+           filename = f"{habit.name.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+
+        # Get full path inside exports/
+        filepath = get_export_path(filename)
+
+        plt.savefig(filepath, dpi=300, bbox_inches='tight')
+
+        print(f"\n✓ Progress chart saved to '{filepath}'")
         # Display the figure
         plt.show()
         

@@ -1,6 +1,14 @@
 from datetime import datetime
+import os
 
-def export_habits_to_html(habits, filename="habits_report.html"):
+EXPORT_DIR = "exports"
+
+def ensure_export_dir():
+    if not os.path.exists(EXPORT_DIR):
+        os.makedirs(EXPORT_DIR)
+
+
+def export_habits_to_html(habits, filename=None):
     """
     Export habits to an HTML file with formatted table.
     """
@@ -9,125 +17,63 @@ def export_habits_to_html(habits, filename="habits_report.html"):
         return
     
     try:
+        ensure_export_dir()
+
+        # ✅ Auto-generate filename with timestamp
+        if filename is None:
+            filename = f"habits_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
+
+        filepath = os.path.join(EXPORT_DIR, filename)
+
         html_content = """<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Habit Tracker Report</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .date {
-            text-align: center;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: bold;
-            border: 1px solid #ddd;
-        }
-        td {
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f0f0f0;
-        }
-        .daily {
-            background-color: #e3f2fd;
-        }
-        .weekly {
-            background-color: #f3e5f5;
-        }
+        body { font-family: Arial; background-color: #f5f5f5; margin: 20px; }
+        .container { background: white; padding: 20px; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #4CAF50; color: white; padding: 10px; }
+        td { padding: 8px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📊 Habit Tracker Report</h1>
-        <p class="date">Generated on: """ + datetime.now().strftime("%B %d, %Y at %H:%M") + """</p>
-        
+        <p>Generated on: """ + datetime.now().strftime("%B %d, %Y at %H:%M") + """</p>
         <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Frequency</th>
-                    <th>Duration</th>
-                    <th>Start Date</th>
-                    <th>Marked off</th>
-                    <th>Last Completed</th>
-                    <th>Current Streak</th>
-                    <th>Longest Streak</th>
-                </tr>
-            </thead>
-            <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Frequency</th>
+                <th>Current Streak</th>
+            </tr>
 """
-        
+
         for habit in habits:
-            habit_dict = habit.to_dict()
-            
-            last_completed = (
-                habit_dict["last_completed"].strftime("%Y/%m/%d")
-                if habit_dict["last_completed"]
-                else "—"
-            )
-            
-            duration_str = str(habit_dict["duration"]) if habit_dict["duration"] else "—"
-            freq_class = habit_dict["frequency"].lower()
-            
-            html_content += f"""                <tr class="{freq_class}">
-                    <td><strong>{habit_dict["name"]}</strong></td>
-                    <td>{habit_dict["category"]}</td>
-                    <td>{habit_dict["frequency"].capitalize()}</td>
-                    <td>{duration_str}</td>
-                    <td>{habit_dict["start_date"]}</td>
-                    <td>{habit_dict["marked_off"]}</td>
-                    <td>{last_completed}</td>
-                    <td><strong>{habit_dict["streak"]}</strong></td>
-                    <td><strong>{habit_dict["longest_streak"]}</strong></td>
-                </tr>
+            h = habit.to_dict()
+            html_content += f"""
+            <tr>
+                <td>{h['name']}</td>
+                <td>{h['category']}</td>
+                <td>{h['frequency']}</td>
+                <td>{h['streak']}</td>
+            </tr>
 """
-        
-        html_content += """            </tbody>
+
+        html_content += """
         </table>
     </div>
 </body>
-</html>"""
-        
-        with open(filename, 'w', encoding='utf-8') as htmlfile:
-            htmlfile.write(html_content)
-        
-        print(f"✓ Habits exported to '{filename}' successfully!")
-        print(f"   Open the file in your browser to view the formatted table.")
-        return filename
+</html>
+"""
+
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        print(f"✓ Exported to {filepath}")
+        return filepath
+
     except Exception as e:
         print(f"❌ Error exporting habits: {e}")
