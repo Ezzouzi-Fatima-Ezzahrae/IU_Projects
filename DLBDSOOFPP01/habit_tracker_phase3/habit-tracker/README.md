@@ -128,16 +128,25 @@ If a habit is not completed within its period, the habit is considered broken
 and the current streak resets to zero. A streak represents the number of
 consecutive completed periods without breaking the habit.
 
+## Testing
+
+This project includes unit tests to verify the functionality of core modules such as habits, storage, and analytics.
+
+### Run all tests
+
+Make sure your virtual environment is activated, then run:
+
+```bash
+pytest 
+```
 
 
-# Contributing
+## Contributing
 
 Your feedback, ideas, and contributions are welcomed!
 
-## License
 
-This project is licensed under the MIT License.
 
 ## Author
 
-Fatima Ezzahrae Ezzouzi
+### Fatima Ezzahrae Ezzouzi
